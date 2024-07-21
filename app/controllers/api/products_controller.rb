@@ -1,8 +1,12 @@
 module Api
 
   class ProductsController < ApplicationController
-    skip_before_action :verify_authenticity_token, only: [:create, :update]
+    skip_before_action :verify_authenticity_token, only: [:index, :create, :update, :destroy]
 
+    def index
+      @products = Product.all
+      render json: @products
+    end
 
     def create 
       @product = Product.create(product_params)
@@ -15,6 +19,12 @@ module Api
       @product = Product.find(params[:id])
       @product.update(product_params)
       render json: @product
+    end
+
+    def destroy
+      @product = Product.find(params[:id])
+      @product.destroy
+      render json: 'Urun silindi..!'
     end
 
     def product_params
