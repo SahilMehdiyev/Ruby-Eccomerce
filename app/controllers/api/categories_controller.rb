@@ -22,6 +22,7 @@ module Api
 
     def create
       @category = Category.create(params_category)
+      byebug
       if @category.save
         render json:@category, status: :ok
       else
