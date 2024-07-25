@@ -14,8 +14,12 @@ module Api
     def create 
       #@product = Product.create(params[:name,:quantity, :description, :product_image])
       @product = Product.create(product_params)
-      @product.save
-      render json: @product
+      if @product.valid?
+        @product.save
+        render json: @product
+      else  
+        render json: @product.errors.full_messages, status: :bad_request
+      end
     end
 
     def show
@@ -48,7 +52,6 @@ module Api
 
     def after_action_method
       print 'after method calisdi. '
-      byebug
     end
 
     
