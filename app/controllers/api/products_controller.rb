@@ -16,12 +16,11 @@ module Api
 
     def show
       @product = Product.find(params[:id])
-      image = rails_blob_url = (@product.product_image)
-      render json: {"image":image, "data": @product}
+
+      image_url = url_for(@product.product_image)
+      render json: {"image":image_url, "data": @product}
     end
     
-
-
 
     def update
       @product = Product.find(params[:id])
